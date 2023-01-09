@@ -2,8 +2,157 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-#root h1 {
-  color: rgb(249, 152, 7);
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+}
+body #root h1 {
+  padding-top: 20px;
+  color: rgb(250, 180, 193);
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  background-color: #223344;
+  color: #fff;
+  margin: auto;
+  font-size: 30px;
+}
+
+.mainPlace {
+  height: 400px;
+  background-color: #bedcfa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 23px;
+}
+
+.btn {
+  margin-top: 50px;
+  display: inline-block;
+  border: none;
+  background-color: #b0b0b0;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  font-size: 20px;
+  padding: 1.2rem 2.5rem;
+}
+.btn:hover {
+  background-color: #fff;
+  border: 1px solid #4d4d4d;
+  color: #223344;
+}
+
+.center {
+  text-align: center;
+}
+
+.searchBar {
+  margin: 100px auto 50px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.searchBar input {
+  padding-left: 15px;
+  font-size: 20px;
+  width: 300px;
+  height: 40px;
+  margin-right: 50px;
+}
+.searchBar button {
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #b0b0b0;
+  width: 80px;
+  height: 40px;
+}
+.searchBar button:hover {
+  border: 1px #585858 solid;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.options {
+  cursor: pointer;
+  margin-left: 50px;
+  border: none;
+  outline: none;
+  width: 120px;
+  height: 40px;
+  background-color: #b0b0b0;
+  border-radius: 0.5rem;
+  color: #fff;
+}
+.options:hover {
+  border: 1px #585858 solid;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.eachList {
+  margin: 30px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.eachList .todo-item {
+  line-height: 40px;
+  color: #696969;
+  font-size: 20px;
+  width: 300px;
+  height: 40px;
+  margin-right: 50px;
+  text-align: left;
+}
+.eachList button {
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  width: 75px;
+  height: 40px;
+}
+
+.complete {
+  background-color: rgb(81, 158, 81);
+  margin-right: 5px;
+}
+.complete:hover {
+  border: 1px rgb(81, 158, 81) solid;
+  background-color: #fff;
+  color: rgb(81, 158, 81);
+  cursor: pointer;
+}
+
+.delete {
+  background-color: rgb(236, 129, 129);
+}
+.delete:hover {
+  border: 1px rgb(236, 129, 129) solid;
+  background-color: #fff;
+  color: rgb(236, 129, 129);
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
 }/*# sourceMappingURL=main.css.map */

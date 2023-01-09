@@ -5,7 +5,7 @@ const BundleAnalyzerPlugin =
 module.exports = {
   mode: "development",
   entry: {
-    bundle: path.resolve(__dirname, "src/app.js"),
+    bundle: path.resolve(__dirname, "src/index.js"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -50,7 +50,7 @@ module.exports = {
   },
   plugins: [
     new HTMLIWebpackPlugin({
-      title: "Webpack app",
+      title: "TO DO LIST",
       filename: "index.html",
       template: "src/template.html",
     }),

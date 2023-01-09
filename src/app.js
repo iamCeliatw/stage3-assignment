@@ -1,7 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { Routes, Route } from "react-router-dom";
 import "./styles/main.css";
-const root = document.getElementById("root");
-const App = () => <h1>React</h1>;
+import Homepage from "./pages/Homepage";
+import Listpage from "./pages/Listpage";
 
-ReactDOM.render(<App />, root);
+function App() {
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/list" element={<Listpage />} />
+      </Routes>
+    </div>
+  );
+}
+export default App;
