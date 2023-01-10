@@ -5,20 +5,11 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
-body {
-  width: 100vw;
-  height: 100vh;
-  background-image: linear-gradient(
-    to top,
-    #f3e7e9 0%,
-    #e3eeff 99%,
-    #e3eeff 100%
-  );
-  #root {
-    h1 {
-      padding-top: 20px;
-      color: rgb(250, 180, 193);
-    }
+
+#root {
+  h1 {
+    padding-top: 20px;
+    color: rgb(250, 180, 193);
   }
 }
 
@@ -44,7 +35,6 @@ body {
 }
 
 .btn {
-  margin-top: 50px;
   display: inline-block;
   border: none;
   background-color: #b0b0b0;
@@ -55,13 +45,17 @@ body {
   letter-spacing: 0.05rem;
   font-weight: 700;
   border-radius: 0.5rem;
-  font-size: 20px;
+  font-size: 25px;
   padding: 1.2rem 2.5rem;
   &:hover {
     background-color: #fff;
     border: 1px solid #4d4d4d;
     color: #223344;
   }
+}
+
+.btn-back {
+  margin-top: 25px;
 }
 
 .center {

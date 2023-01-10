@@ -4,10 +4,13 @@ import List from "./List";
 
 const Addform = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
   const inputTexthandler = (e) => {
-    console.log(e.target.value);
     setInputText(e.target.value);
   };
   const submitTodoHandler = (e) => {
+    if (inputText === "") {
+      alert("請輸入代辦事項");
+      return;
+    }
     setTodos([
       ...todos,
       { text: inputText, completed: false, id: Math.random() * 1000 },
@@ -26,7 +29,7 @@ const Addform = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
         type="text"
         placeholder="Type Here..."
       />
-      <button onClick={submitTodoHandler}>Submit</button>
+      <button onClick={submitTodoHandler}>SUBMIT</button>
       <select onChange={statusHandler} className="options">
         <option value="all" className="option">
           ALL

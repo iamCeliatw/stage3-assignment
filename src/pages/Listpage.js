@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Addform from "../components/Addform";
 import List from "../components/List";
-import { json, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Listpage = () => {
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
-  // run once when the app start
+  //execute once when the app start
   useEffect(() => {
     getLocalTodos();
   }, []);
-  // useEffect
+  //execute useEffect when todos and status changed
   useEffect(() => {
     filterHandler();
     saveLocalTodos();
@@ -49,7 +49,6 @@ const Listpage = () => {
 
   return (
     <div className="center">
-      {/* form */}
       <h1>TO DO LIST</h1>
       <Addform
         inputText={inputText}
@@ -68,7 +67,7 @@ const Listpage = () => {
           key={todo.id}
         />
       ))}
-      <Link className="btn center" to="/">
+      <Link className="btn btn-back center " to="/">
         Back
       </Link>
     </div>
