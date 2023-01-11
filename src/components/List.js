@@ -1,27 +1,21 @@
+import { updateDoc } from "@firebase/firestore";
+import { async } from "@firebase/util";
 import React from "react";
 
-const List = ({ text, todo, todos, setTodos }) => {
+const List = ({ text, todo, todos, setTodos, deleteTodo, updateTodo }) => {
   //   console.log(todos);
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));
+    deleteTodo(todo.id);
   };
-  const completeHandler = () => {
-    setTodos(
-      todos.map((item) => {
-        if (item.id === todo.id) {
-          return { ...item, completed: !item.completed };
-        }
-        return item;
-      })
-    );
-  };
+
   return (
     <div>
       <div className="eachList">
         <h2 className={`todo-item ${todo.completed ? "completed" : ""}`}>
           {text}
         </h2>
-        <button onClick={completeHandler} className="complete">
+        <button onClick={() => updateTodo(todo)} className="complete">
           DONE
         </button>
         <button onClick={deleteHandler} className="delete">
@@ -33,3 +27,12 @@ const List = ({ text, todo, todos, setTodos }) => {
 };
 
 export default List;
+
+// setTodos(
+//     todos.map((item) => {
+//       if (item.id === todo.id) {
+//         return { ...item, completed: !item.completed };
+//       }
+//       // return item;
+//     })
+//   );

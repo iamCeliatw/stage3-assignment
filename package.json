@@ -28,7 +28,12 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@firebase/firestore": "^3.8.0",
     "axios": "^1.2.2",
+    "dotenv": "^16.0.3",
+    "firebase": "^9.15.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1"

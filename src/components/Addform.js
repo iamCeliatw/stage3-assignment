@@ -2,7 +2,14 @@ import React from "react";
 import { useState } from "react";
 import List from "./List";
 
-const Addform = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
+const Addform = ({
+  inputText,
+  setInputText,
+  todos,
+  setTodos,
+  setStatus,
+  createTodo,
+}) => {
   const inputTexthandler = (e) => {
     setInputText(e.target.value);
   };
@@ -16,6 +23,7 @@ const Addform = ({ inputText, setInputText, todos, setTodos, setStatus }) => {
       { text: inputText, completed: false, id: Math.random() * 1000 },
     ]);
     setInputText("");
+    createTodo();
   };
 
   const statusHandler = (e) => {
