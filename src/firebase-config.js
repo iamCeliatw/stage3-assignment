@@ -1,6 +1,6 @@
 import { getFirestore } from "@firebase/firestore";
 import { initializeApp } from "firebase/app";
-
+import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyDeUTDlOC_NOHQUE_7GCsicmnoQAyxnQTU",
   authDomain: "todolist-project-28e36.firebaseapp.com",
@@ -10,7 +10,11 @@ const firebaseConfig = {
   appId: "1:835957724697:web:d3c082968ac493570b7c88",
 };
 
-//initxw
+//init
 const app = initializeApp(firebaseConfig);
 
+//auth
+export const auth = getAuth(app);
+
+// firestore
 export const db = getFirestore(app);

@@ -26884,16 +26884,6 @@ const Listpage = () => {
   const [todos, setTodos] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("all");
   const [filteredTodos, setFilteredTodos] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-
-  //   useEffect(() => {
-  //     const unsubscribe = onSnapshot(collection(db, "todos"), (snapshot) => {
-  //       setFilteredTodos(
-  //         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-  //       );
-  //     });
-  //     return () => unsubscribe();
-  //   }, []);
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const unsubscribe = (0,_firebase_firestore__WEBPACK_IMPORTED_MODULE_4__.onSnapshot)((0,_firebase_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_firebase_config__WEBPACK_IMPORTED_MODULE_3__.db, "todos"), snapshot => {
       let filteredTodos = snapshot.docs.map(doc => ({
@@ -26932,21 +26922,6 @@ const Listpage = () => {
     const userDoc = (0,_firebase_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_firebase_config__WEBPACK_IMPORTED_MODULE_3__.db, "todos", id);
     await (0,_firebase_firestore__WEBPACK_IMPORTED_MODULE_4__.deleteDoc)(userDoc);
   };
-
-  //   const completeHandler = async (todo) => {
-  //     await updateDoc(doc(db, "todos", todo.id), {
-  //       completed: !todo.completed,
-  //     });
-  //   };
-
-  //   useEffect(() => {
-  //     const getTodos = async () => {
-  //       const data = await getDocs(userCollectionRef);
-  //       setFilteredTodos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //     };
-  //     getTodos();
-  //   }, []);
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     filterHandler();
   }, [todos, status]);
@@ -65456,4 +65431,4 @@ root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createEle
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle6b5befb8ef2e43024757.js.map
+//# sourceMappingURL=bundle78f55c6d63d00db9fe3d.js.map

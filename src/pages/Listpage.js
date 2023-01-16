@@ -1,90 +1,136 @@
 import React, { useState, useEffect } from "react";
 import Addform from "../components/Addform";
 import List from "../components/List";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import {
   collection,
+  query,
   updateDoc,
   addDoc,
   deleteDoc,
   doc,
   onSnapshot,
+  getDocs,
+  setDoc,
 } from "@firebase/firestore";
+
+import { UserAuth } from "../AuthContext";
 
 //listpage主程式 邏輯都寫在裡面
 const Listpage = () => {
+  const { user, logout } = UserAuth();
   //firebase
-  const userCollectionRef = collection(db, "todos");
+  const userId = user.uid;
 
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
+  const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      await logout();
+      navigate("/");
+      console.log("you are log out!");
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
-  //   useEffect(() => {
-  //     const unsubscribe = onSnapshot(collection(db, "todos"), (snapshot) => {
-  //       setFilteredTodos(
-  //         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-  //       );
-  //     });
-  //     return () => unsubscribe();
-  //   }, []);
+  const getTodos = async () => {
+    const q = query(collection(db, "users"));
+    const snapshot = await getDocs(q);
+    // console.log(snapshot);
+    const data = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    // console.log(data);
+    data.map(async (elem) => {
+      if (elem.email === user.email) {
+        const todoQ = query(collection(db, `users/${elem.id}/todos`));
+        const todoDetail = await getDocs(todoQ);
+        const todoInfo = todoDetail.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setTodos(todoInfo);
+        // console.log(todoInfo);
+      }
+    });
+  };
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "todos"), (snapshot) => {
-      let filteredTodos = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      switch (status) {
-        case "completed":
-          filteredTodos = filteredTodos.filter(
-            (todo) => todo.completed === true
-          );
-          break;
-        case "uncompleted":
-          filteredTodos = filteredTodos.filter(
-            (todo) => todo.completed === false
-          );
-          break;
-        default:
-          setFilteredTodos(todos);
-          break;
-      }
-      setFilteredTodos(filteredTodos);
-    });
-    return () => unsubscribe();
-  }, [status]);
+    getTodos();
+  }, [user.email]);
 
   const createTodo = async () => {
-    await addDoc(userCollectionRef, { doThing: inputText, completed: false });
+    const q = query(collection(db, "users"));
+    const querySnapShot = await getDocs(q);
+    const queryData = querySnapShot.docs.map((detail) => ({
+      ...detail.data(),
+      id: detail.id,
+    }));
+    console.log(queryData);
+    queryData.map(async (elem) => {
+      if (elem.email === user.email) {
+        await setDoc(doc(db, `users/${elem.id}/todos/${inputText}`), {
+          doThing: inputText,
+          completed: false,
+        });
+      }
+    });
+    getTodos();
   };
 
   const updateTodo = async (todo) => {
-    const userDoc = doc(db, "todos", todo.id);
-    const newStatus = { completed: !todo.completed };
-    await updateDoc(userDoc, newStatus);
+    const q = query(collection(db, "users"));
+    const querySnapShot = await getDocs(q);
+    const queryData = querySnapShot.docs.map((detail) => ({
+      ...detail.data(),
+      id: detail.id,
+    }));
+    queryData.map(async (elem) => {
+      const todoQ = query(collection(db, `users/${elem.id}/todos`));
+      const todoDetail = await getDocs(todoQ);
+      const todoInfo = todoDetail.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      const clickedTodo = todoInfo.find((t) => t.id === todo.id);
+      if (clickedTodo) {
+        const userDoc = doc(db, `users/${elem.id}/todos/`, todo.id);
+        const newStatus = { completed: !todo.completed };
+        await updateDoc(userDoc, newStatus);
+      }
+      getTodos();
+    });
   };
-
-  const deleteTodo = async (id) => {
-    const userDoc = doc(db, "todos", id);
-    await deleteDoc(userDoc);
+  //   console.log(user && user.email);
+  const deleteTodo = async (todo) => {
+    const q = query(collection(db, "users"));
+    const querySnapShot = await getDocs(q);
+    const queryData = querySnapShot.docs.map((detail) => ({
+      ...detail.data(),
+      id: detail.id,
+    }));
+    queryData.map(async (elem) => {
+      const todoQ = query(collection(db, `users/${elem.id}/todos`));
+      const todoDetail = await getDocs(todoQ);
+      const todoInfo = todoDetail.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      const clickedTodo = todoInfo.find((t) => t.id === todo.id);
+      if (clickedTodo) {
+        const userDoc = doc(db, `users/${elem.id}/todos/`, todo.id);
+        await deleteDoc(userDoc);
+      }
+      getTodos();
+    });
   };
-
-  //   const completeHandler = async (todo) => {
-  //     await updateDoc(doc(db, "todos", todo.id), {
-  //       completed: !todo.completed,
-  //     });
-  //   };
-
-  //   useEffect(() => {
-  //     const getTodos = async () => {
-  //       const data = await getDocs(userCollectionRef);
-  //       setFilteredTodos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //     };
-  //     getTodos();
-  //   }, []);
 
   useEffect(() => {
     filterHandler();
@@ -108,6 +154,7 @@ const Listpage = () => {
   return (
     <div className="center">
       <h1>TO DO LIST</h1>
+      <p>User email : {user && user.email}</p>
       <Addform
         inputText={inputText}
         todos={todos}
@@ -131,6 +178,9 @@ const Listpage = () => {
       <Link className="btn btn-back center " to="/">
         Back
       </Link>
+      <button onClick={logoutHandler} className="btn">
+        Sign out
+      </button>
     </div>
   );
 };
